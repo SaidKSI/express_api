@@ -1,0 +1,14 @@
+GET    http://localhost:8000/patients
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ubiIsImlhdCI6MTY0OTg5NzU1NX0.YZBP4InMQMlueCJpcWSF6mrkhaLAjZmgMBmxa1klu4I
+
+###
+
+POST http://localhost:8000/login
+Content-Type: application/json
+
+{
+    "email": "nnn",
+    "password": "nnn"
+}
+###
+GET    http://localhost:8000/users 
