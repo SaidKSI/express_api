@@ -1,11 +1,16 @@
 const express=require("express");
 const cors=require("cors"); 
 
-const { patientList } = require("./params/patients");
+const {  } = require("./params/patients");
 const { usersList } = require("./params/users");
 const { generateAccessToken } = require("./utils");
 const { authenticateToken } = require("./middleware/auth");
+
+//database
 const db = require("./models");
+
+const { listPatients, deletePatient, addPatient } = require("./controllers/patients.controller");
+const { addRdv, listRdv } = require("./controllers/rdv.controller");
 
 
 
@@ -20,15 +25,16 @@ app.use(express.urlencoded(true))
 
 
 // Endpoint, Route, web service, 
-app.get("/patients", authenticateToken,function(request, response){
-     
-    let patients= await db.Patient.findAll({
-        order:[ ['id', 'DESC']],
-    });
+app.get("/patients", authenticateToken,listPatients(db))
 
-    return response.json(patients)
-    //200 ok , 400 invalid data, 500 internal, 404 not found 
- })
+app.post("/patient", authenticateToken,addPatient(db))
+
+app.get("/patient/:id", authenticateToken,deletePatient(db))
+
+
+app.get("/rdvs", authenticateToken,listRdv(db))
+
+app.post("/rdv", authenticateToken,addRdv(db))
 
  // Endpoint, Route, web service, 
 app.get("/users", async function(request, response){
@@ -58,15 +64,18 @@ app.post("/patient", authenticateToken,function(request, response){
  })
 
  
- app.post("/login", function(request, response){
+ app.post("/login", async function(request, response){
      
     let email=request.body.email;
     let password=request.body.password; 
  
-    let users=usersList(); 
-    //find return element or undefind
     
-    let user= users.find(x=>x.email===email && x.password===password) 
+    let user=await db.User.findOne({
+        where:{
+            email: email,
+            password: password
+        }
+    }) 
 
     if(user){
         let token=generateAccessToken({email: user.email})
