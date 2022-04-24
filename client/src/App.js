@@ -16,6 +16,7 @@ import Menu from "./components/Menu";
 import Layout from "./components/Layout";
 import PatientList from "./pages/PatientList";
 import Privateroute from "./components/privateroute";
+import PatientDetails from "./pages/PatientDetails";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
       <Route path="/" element={<Privateroute><Layout><TodosPage /></Layout></Privateroute> } /> 
 
       <Route path="/patients" element={<Privateroute><Layout><PatientList /></Layout></Privateroute>} /> 
+      <Route path="/patients/:id" element={<Privateroute><Layout><PatientDetails /></Layout></Privateroute>} /> 
 
       <Route path="/login" element={<Login />} /> 
       <Route path="*" exact element={<Navigate to="/"  />} />

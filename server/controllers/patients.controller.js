@@ -7,7 +7,7 @@ function listPatients(db){
 
         let patients= await db.Patient.findAll(
             {
-                where:{},
+              where:{},
             include:[
                 { model: db.Rdv }
             ],
@@ -74,6 +74,7 @@ function deletePatient(db){
             let deleted= await db.Patient.destroy(
                 {
                     where:{id: id} 
+                    
                }
             ); 
              return res.json(deleted) 
@@ -86,4 +87,40 @@ function deletePatient(db){
 }
 }
 
-module.exports={listPatients,deletePatient,updatePatient,addPatient}
+function detailsPatient(db){
+ 
+    return  async function (req,res) {
+
+        try{ 
+            let id=parseInt(req.params.id)
+
+            let patient= await db.Patient.findOne(
+                {
+                    where:{id: id} ,
+                    include:[
+                        { model: db.Rdv}
+                      
+                    ],  
+                    order:[
+                        [ db.Rdv, 'daterdv', 'DESC' ], 
+                    ]  
+               }
+            ); 
+            
+            if(patient){
+                
+             return res.json({status:"success",payload: patient}) 
+            }
+            else
+            return res.status(404).json({status:"failed",payload: "not found"});
+            
+        }
+        catch(err){
+            return res.status(500).json({status:"failed",payload: err});
+        }
+ 
+}
+}
+
+
+module.exports={listPatients,deletePatient,updatePatient,addPatient,detailsPatient}

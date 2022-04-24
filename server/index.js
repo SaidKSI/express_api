@@ -9,7 +9,7 @@ const { authenticateToken } = require("./middleware/auth");
 //database
 const db = require("./models");
 
-const { listPatients, deletePatient, addPatient } = require("./controllers/patients.controller");
+const { listPatients, deletePatient, addPatient,detailsPatient } = require("./controllers/patients.controller");
 const { addRdv, listRdv } = require("./controllers/rdv.controller");
 
 
@@ -27,9 +27,12 @@ app.use(express.urlencoded(true))
 // Endpoint, Route, web service, 
 app.get("/patients", authenticateToken,listPatients(db))
 
-app.post("/patient", authenticateToken,addPatient(db))
+//add patient
+app.post("/patients", authenticateToken,addPatient(db))
 
-app.get("/patient/:id", authenticateToken,deletePatient(db))
+app.get("/patients/:id", authenticateToken,detailsPatient(db))
+
+app.delete("/patients/:id", authenticateToken,deletePatient(db))
 
 
 app.get("/rdvs", authenticateToken,listRdv(db))
@@ -48,21 +51,7 @@ app.get("/users", async function(request, response){
     //200 ok , 400 invalid data, 500 internal, 404 not found 
  })
 
- // add patient
-app.post("/patient", authenticateToken,function(request, response){
-    let firstName=request.body.firstName;
-    
-    let patient={
-        firstName:firstName
-    }
-
-    //db.Patient.create(patient);
-    
-    return response.json({status:"success",payload: patient})
-
-    //200 ok , 400 invalid data, 500 internal, 404 not found 
- })
-
+ 
  
  app.post("/login", async function(request, response){
      

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 export default function PatientList() {
   const [patients, setPatients] = useState([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    
-    async function getPatient(){
+  const [loading, setLoading] = useState(false);  
+  
+  async function getPatients(){
 
       try{
         setLoading(true)
@@ -21,8 +21,11 @@ export default function PatientList() {
       }
     
     }
+
+
+  useEffect(() => {
     
-    getPatient()
+    getPatients()
   }, []); 
 
   return (
@@ -33,10 +36,14 @@ export default function PatientList() {
           <th>Prenom</th>
         </tr>
         {patients.map((patient, index) => (
-          <tr className="flex justify-between">
+        
+          <tr id={patient.id} className="flex justify-between"> 
+           <Link to={"/patients/"+patient.id}>
             <td>{patient.firstName}</td>
-            <td>{patient.lastName}</td>
+            <td>{patient.lastName}</td> 
+             </Link>
           </tr>
+        
         ))}
       </table>
 

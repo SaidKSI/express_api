@@ -12,7 +12,8 @@ Content-Type: application/json
 GET    http://localhost:8000/users 
 
 ###
-GET    http://localhost:8000/patients
+
+GET    http://localhost:8000/patients/5
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY1MDU4NjQzOX0.dFuCOsAH5rqSvRQVEiKt9CEZ6jF-hu5Lym5aO0m2-Gk
 
 ###
@@ -20,13 +21,13 @@ GET    http://localhost:8000/rdvs
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY1MDU4NjQzOX0.dFuCOsAH5rqSvRQVEiKt9CEZ6jF-hu5Lym5aO0m2-Gk
 
 ###
-POST    http://localhost:8000/patient
+POST    http://localhost:8000/patients
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY1MDU4NjQzOX0.dFuCOsAH5rqSvRQVEiKt9CEZ6jF-hu5Lym5aO0m2-Gk
 
 {
     "firstName": "Yahya",
-    "lastName": "Yahya"
+    "lastName": "Yahywwa"
 }
 
 ###
@@ -38,6 +39,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQ
 {
     "patientId": 5,
     "motif": "Fievre",
-    "date": "2022/05/22" 
+    "date": "2022/09/30" 
 }
 
